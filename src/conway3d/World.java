@@ -21,15 +21,19 @@ public class World extends Observable {
 
         world = new boolean[width][height][depth];
 
-        // Random initialization
-        Random r = new Random();
-        for(int i = 0 ; i < this.width ; i++) {
-            for(int j = 0 ; j < this.height ; j++) {
-                for(int k = 0 ; k < this.depth ; k++) {
-                    world[i][j][k] = r.nextBoolean();
-                }
-            }
-        }
+        restart();
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    public int getDepth() {
+        return this.depth;
     }
 
     public void restart() {
@@ -43,6 +47,9 @@ public class World extends Observable {
         }
 
         this.generation = 0;
+
+        setChanged();
+        notifyObservers();
     }
 
     public void evolve() {
@@ -66,7 +73,7 @@ public class World extends Observable {
                         }
                     }
 
-                    newWorld[i][j][k] = (neighborsCounter == 10) || (world[i][j][k] && (neighborsCounter >= 7) && (neighborsCounter <= 10));
+                    newWorld[i][j][k] = (neighborsCounter == 3) || (world[i][j][k] && (neighborsCounter >= 2) && (neighborsCounter <= 3));
                 }
             }
         }
@@ -80,5 +87,9 @@ public class World extends Observable {
 
     public int getGeneration() {
         return this.generation;
+    }
+
+    public boolean isAlive(int width, int height, int depth) {
+        return world[width][height][depth];
     }
 }

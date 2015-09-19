@@ -14,6 +14,8 @@ NB: this values are proportional to the ratio of the Conway life game in 2D:
   * 2 / 8 (neighbors) = 0.25 and 7 / 26 (neighbors) = 0.269 
 
 
+A test was also conducted with traditional Conway life game values.
+
 Author
 ------
 
