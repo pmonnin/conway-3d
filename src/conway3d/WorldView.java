@@ -90,6 +90,11 @@ public class WorldView extends VBox implements Observer {
                 else if(event.getCode() == KeyCode.PAGE_DOWN) {
                     WorldView.this.camera.getTransforms().add(new Translate(0.0, 1.0, 0.0));
                 }
+
+                else if(event.getCode() == KeyCode.R) {
+                    WorldView.this.camera.getTransforms().clear();
+                    WorldView.this.camera.getTransforms().add(new Translate(model.getWidth() / 2, model.getHeight() / 2, -2 * model.getHeight()));
+                }
             }
         });
 
@@ -98,8 +103,8 @@ public class WorldView extends VBox implements Observer {
         this.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                WorldView.this.oldMouseX = event.getX();
-                WorldView.this.oldMouseY = event.getY();
+                WorldView.this.oldMouseX = event.getScreenX();
+                WorldView.this.oldMouseY = event.getScreenY();
             }
         });
 
@@ -107,11 +112,11 @@ public class WorldView extends VBox implements Observer {
         this.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                WorldView.this.camera.getTransforms().add(new Rotate(0.1*(event.getX() - oldMouseX), new Point3D(0.0, 1.0, 0.0)));
-                WorldView.this.camera.getTransforms().add(new Rotate(-0.1*(event.getY() - oldMouseY), new Point3D(1.0, 0.0, 0.0)));
+                WorldView.this.camera.getTransforms().add(new Rotate(0.08*(event.getScreenX() - oldMouseX), new Point3D(0.0, 1.0, 0.0)));
+                WorldView.this.camera.getTransforms().add(new Rotate(-0.08*(event.getScreenY() - oldMouseY), new Point3D(1.0, 0.0, 0.0)));
 
-                WorldView.this.oldMouseX = event.getX();
-                WorldView.this.oldMouseY = event.getY();
+                WorldView.this.oldMouseX = event.getScreenX();
+                WorldView.this.oldMouseY = event.getScreenY();
             }
         });
     }
